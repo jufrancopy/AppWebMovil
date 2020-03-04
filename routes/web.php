@@ -34,3 +34,10 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     //Patients
     Route::resource('patients', 'PatientController');
 });
+
+Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
+    //Agendamientos
+    Route::get('/schedule', 'ScheduleController@edit');
+    Route::post('/schedule', 'ScheduleController@store');
+
+});
