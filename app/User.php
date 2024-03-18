@@ -19,20 +19,14 @@ class User extends Authenticatable
         'name', 'email', 'password', 'ci', 'address', 'phone', 'role'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'pivot'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    public function specialties(){
+        return $this->belongsToMany(Specialty::class)->withTimestamps();
+    }
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

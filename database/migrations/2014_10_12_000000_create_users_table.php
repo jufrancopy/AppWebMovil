@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             //Campos agregados
-            $table->string('ci');
+            $table->string('ci')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
 

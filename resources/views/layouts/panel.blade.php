@@ -16,6 +16,7 @@
   <link href="{{asset('vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
   <!-- Argon CSS -->
   <link type="text/css" href="{{asset('css/argon.css?v=1.0.0')}}" rel="stylesheet">
+  @yield('styles')
 </head>
 
 <body>
@@ -99,7 +100,8 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Panel de Administración</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Panel de
+          Administración</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -150,6 +152,7 @@
   <script src="{{asset('vendor/chart.js/dist/Chart.min.js')}}"></script>
   <script src="{{asset('vendor/chart.js/dist/Chart.extension.js')}}"></script>
   <!-- Argon JS -->
+  @yield('scripts')
   <script src="{{asset('js/argon.js?v=1.0.0')}}"></script>
 </body>
 

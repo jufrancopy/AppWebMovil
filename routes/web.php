@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -39,5 +40,19 @@ Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
     //Agendamientos
     Route::get('/schedule', 'ScheduleController@edit');
     Route::post('/schedule', 'ScheduleController@store');
+});
 
+Route::middleware('auth')->group(function () {
+    Route::get('/appointments/create', 'AppointmentController@create')->name('appointments.create');
+    Route::post('/appointments', 'AppointmentController@store'); 
+    
+    Route::get('/appointments', 'AppointmentController@index')->name('appointments.index');
+    Route::get('/appointments/{appointment}', 'AppointmentController@show');
+    Route::get('/appointments/{appointment}/cancel', 'AppointmentController@showCancelForm');
+    Route::post('/appointments/{appointment}/cancel', 'AppointmentController@postCancel');
+    Route::post('/appointments/{appointment}/confirm', 'AppointmentController@postConfirm');
+
+    // Json
+    Route::get('/specialties/{specialty}/doctors', 'Api\SpecialtyController@doctors');
+    Route::get('/schedule/hours', 'Api\ScheduleController@hours');
 });
