@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\SpecialtiesTableSeeder;
+use Database\Seeders\WorkDaysTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
