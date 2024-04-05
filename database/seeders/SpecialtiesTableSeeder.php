@@ -15,19 +15,21 @@ class SpecialtiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $specialties =[
+        $specialties = [
             'Oftalmologia',
             'Reumatología',
             'Cardiologia'
         ];
 
-        foreach ($specialties as $specialtyName){
+        foreach ($specialties as $specialtyName) {
             $specialty = Specialty::create([
-                'name'=>$specialtyName
+                'name' => $specialtyName
             ]);
 
             $specialty->users()->saveMany(
-                factory(User::class, 3)->states('doctor')->make()
+                // factory(User::class, 3)->states('doctor')->make();
+                // User::factory()->count(3)->states('doctor')->make()
+                User::factory()->count(3)->doctor()->make()
             );
         }
 

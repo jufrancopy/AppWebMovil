@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,11 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
 
     //Patients
     Route::resource('patients', 'PatientController');
+
+    //Charts
+    Route::get('/charts/appoinments/line', 'ChartController@appointments');
+    Route::get('/charts/doctors/column', 'ChartController@doctorAppointments');
+    Route::get('/charts/doctors/column/data', 'ChartController@doctorAppointmentsJson');
 });
 
 Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
@@ -44,8 +51,8 @@ Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/appointments/create', 'AppointmentController@create')->name('appointments.create');
-    Route::post('/appointments', 'AppointmentController@store'); 
-    
+    Route::post('/appointments', 'AppointmentController@store');
+
     Route::get('/appointments', 'AppointmentController@index')->name('appointments.index');
     Route::get('/appointments/{appointment}', 'AppointmentController@show');
     Route::get('/appointments/{appointment}/cancel', 'AppointmentController@showCancelForm');
