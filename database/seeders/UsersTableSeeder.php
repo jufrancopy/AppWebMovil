@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\User;
 
@@ -37,6 +39,8 @@ class UsersTableSeeder extends Seeder
             'role' => 'doctor',
         ]);
 
-        factory(User::class, 50)->states('patient')->create();
+        // factory(User::class, 50)->states('patient')->create();
+        // User::factory()->count(50)->states('patient')->create();
+        User::factory()->count(50)->patient()->create();
     }
 }

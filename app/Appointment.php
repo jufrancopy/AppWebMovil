@@ -5,8 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Appointment extends Model
 {
+	use HasFactory;
+
 	protected $fillable = [
 		'description',
 		'specialty_id',
@@ -32,7 +36,8 @@ class Appointment extends Model
 		return $this->belongsTo(User::class);
 	}
 
-	public function cancellation(){
+	public function cancellation()
+	{
 		return $this->hasOne(CancelledAppointment::class);
 	}
 
@@ -42,5 +47,4 @@ class Appointment extends Model
 		return (new Carbon($this->scheduled_time))
 			->format('g:i A');
 	}
-	
 }
