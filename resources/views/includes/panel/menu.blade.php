@@ -39,5 +39,11 @@
                 <i class="ni ni-spaceship text-orange"></i> Médicos + activos
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/charts/doctors/column') }}">
+                <i class="ni ni-spaceship text-orange"></i> Otros
+            </a>
+        </li>
 @endif
 </ul>
