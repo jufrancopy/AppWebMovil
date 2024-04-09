@@ -44,13 +44,13 @@
                     <form action="{{url('/appointments/'.$appointment->id.'/confirm')}}" method="POST"
                         class="d-inline-block">
                         @csrf
-                        <button class="btn btn-sm btn-success" type="submit" data-toggle="tooltip"
+                        <button class="btn btn-sm btn-success btn-circle" type="submit" data-toggle="tooltip"
                             title="Confirmar Cita">
                             <i class="ni ni-check-bold"></i>
                         </button>
                     </form>
                     <a href="{{'/appointments/'.$appointment->id.'/cancel'}}" class="btn btn-sm btn-danger">
-                        <i class="ni ni-fat-detele"></i>
+                        <i class="ni ni-fat-detele btn-circle"></i>
                     </a>
                     
                     @else

@@ -43,7 +43,6 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->toArray());
         $active = $request->input('active') ?: [];
         $morning_start = $request->input('morning_start');
         $morning_end = $request->input('morning_end');
@@ -59,11 +58,12 @@ class ScheduleController extends Controller
             if ($afternoon_start[$i] > $afternoon_end[$i]) {
                 $errors[] = 'Las horas del turno tarde son inconsistentes para el dia ' .$this->days[$i] . '.';
             }
+
             WorkDay::updateOrCreate(
                 [
                     'day' => $i,
-                    'user_id' => auth()->id(),
-
+                    // 'user_id' => auth()->id(),
+                    'user_id'=>$request->doctor_id
                 ],
                 [
                     'active' => in_array($i, $active),

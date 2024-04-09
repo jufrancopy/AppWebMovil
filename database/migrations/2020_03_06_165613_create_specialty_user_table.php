@@ -17,11 +17,15 @@ class CreateSpecialtyUserTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedInteger('specialty_id');
-            $table->foreign('specialty_id')->references('id')->on('specialties');
+            $table->foreign('specialty_id')->references('id')->on('specialties')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

@@ -16,6 +16,7 @@ class ScheduleController extends Controller
                 'date'          =>  'required|date_format:"Y-m-d"',
                 'doctor_id'     =>  'required|exists:users,id'
         ];
+        
         $this->validate($request, $rules);
 
         $date       = $request->input('date');

@@ -48,12 +48,12 @@
                 </td>
                 <td>
                     @if($role == "admin")
-                    <a class="btn btn-sm btn-info" title="Detalles de la Cita"
+                    <a class="btn btn-sm btn-info btn-circle" title="Detalles de la Cita"
                         href="{{url('/appointments/'.$appointment->id)}}">
                         <i class="fas fa-eye"></i>
                     </a>
                     @endif
-                    <a class="btn btn-sm btn-danger" title="Cancelar Cita" 
+                    <a class="btn btn-sm btn-danger btn-circle" title="Cancelar Cita" 
                     href="{{url('/appointments/'.$appointment->id.'/cancel')}}">
                         Cancelar
                     </a>

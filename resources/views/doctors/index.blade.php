@@ -47,8 +47,9 @@
                         <form action="{{url('doctors/'.$doctor->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href="{{url('doctors/'.$doctor->id.'/edit')}}" class="btn btn-primary btn-sm">Editar</a>
-                            <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                            <a href="{{url('doctors/'.$doctor->id.'/edit')}}" class="btn btn-primary btn-sm btn-circle"><i class="fa fa-edit"></i></a>
+                            <button class="btn btn-sm btn-danger btn-circle" type="submit"><i class="fa fa-trash"></i></button>
+                            <a href="{{route('asignHour', $doctor->id)}}" class="btn btn-sm btn-info btn-circle"><i class="fa fa-calendar"></i></a>
                         </form>
                     </td>
                 </tr>

@@ -33,6 +33,11 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
 
     //Doctors
     Route::resource('doctors', 'DoctorController');
+    Route::get('doctor/{id}/schedule', 'DoctorController@showHours')->name('asignHour');
+
+    //Schedule
+    Route::get('/schedule', 'ScheduleController@edit');
+    Route::post('/schedule', 'ScheduleController@store');
 
     //Patients
     Route::resource('patients', 'PatientController');
@@ -43,11 +48,11 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     Route::get('/charts/doctors/column/data', 'ChartController@doctorAppointmentsJson');
 });
 
-Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
-    //Agendamientos
-    Route::get('/schedule', 'ScheduleController@edit');
-    Route::post('/schedule', 'ScheduleController@store');
-});
+// Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
+//     //Agendamientos
+//     Route::get('/schedule', 'ScheduleController@edit');
+//     Route::post('/schedule', 'ScheduleController@store');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/appointments/create', 'AppointmentController@create')->name('appointments.create');

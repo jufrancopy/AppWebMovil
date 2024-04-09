@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $query->where('role', 'doctor');
     }
 
+    public function workDays()
+    {
+        return $this->hasMany(WorkDay::class);
+    }
+
     public function asDoctorAppointments()
     {
         return $this->hasMany(Appointment::class, 'doctor_id');
@@ -60,8 +65,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class, 'doctor_id')->where('status', 'Cancelada');
     }
-
-
+    
     public function asPatientAppointments()
     {
         return $this->hasMany(Appointment::class, 'patient_id');

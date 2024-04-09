@@ -3,6 +3,7 @@
 @section('content')
 <form action="{{url('/schedule')}}" method="POST">
     @csrf
+    <input type="text" name="doctor_id" value="{{ $id }}">
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">

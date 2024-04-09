@@ -27,7 +27,7 @@
                     
                 </td>
                 <td>
-                    <a href="{{url('/appointments/'.$appointment->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                    <a href="{{url('/appointments/'.$appointment->id)}}" class="btn btn-primary btn-sm btn-circle"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach

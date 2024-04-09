@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- Icons -->
     <link href="{{ asset('vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/mystyles.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
@@ -153,6 +154,7 @@
     <!-- Optional JS -->
     <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
+    <script src="https://kit.fontawesome.com/776ed7f2a9.js" crossorigin="anonymous"></script>
     <!-- Argon JS -->
     @yield('scripts')
     <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
