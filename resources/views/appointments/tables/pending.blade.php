@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     @if($role== "admin")
-                    <a class="btn btn-sm btn-info" title="Ver citas" href="{{url('/appointments/'.$appointment->id)}}">
+                    <a class="btn btn-sm btn-info btn-circle" title="Ver citas" href="{{url('/appointments/'.$appointment->id)}}">
                         <i class="fas fa-eye"></i>
                     </a>
                     @endif
@@ -49,16 +49,16 @@
                             <i class="ni ni-check-bold"></i>
                         </button>
                     </form>
-                    <a href="{{'/appointments/'.$appointment->id.'/cancel'}}" class="btn btn-sm btn-danger">
-                        <i class="ni ni-fat-detele btn-circle"></i>
+                    <a href="{{'/appointments/'.$appointment->id.'/cancel'}}" class="btn btn-sm btn-danger btn-circle">
+                        <i class="fas fa-trash"></i>
                     </a>
                     
                     @else
                     <form action="{{url('/appointments/'.$appointment->id.'/cancel')}}" method="POST"
                         class="d-inline-block">
                         @csrf
-                        <button class="btn btn-sm btn-danger" type="submit" data-toggle="tooltip" title="Cancelar Cita">
-                            <i class="ni ni-fat-delete"></i>
+                        <button class="btn btn-sm btn-danger btn-circle" type="submit" data-toggle="tooltip" title="Cancelar Cita">
+                            <i class="fas fa-trash"></i>
                         </button>
                     </form>
                     @endif

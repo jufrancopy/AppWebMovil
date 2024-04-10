@@ -55,7 +55,7 @@
                     @endif
                     <a class="btn btn-sm btn-danger btn-circle" title="Cancelar Cita" 
                     href="{{url('/appointments/'.$appointment->id.'/cancel')}}">
-                        Cancelar
+                    <i class="fas fa-trash"></i>
                     </a>
                 </td>
             </tr>
