@@ -37,8 +37,9 @@ class ChartController extends Controller
 
     public function doctorAppointmentsJson(Request $request)
     {
-        $start = $request->input('start');
-        $end = $request->input('end');
+        //Recibimos en Formato Dia-hora-mes y convertimos para evitar conflictos
+        $start = Carbon::createFromFormat('d-m-Y', $request->input('start'))->format('Y-m-d');
+        $end = Carbon::createFromFormat('d-m-Y', $request->input('end'))->format('Y-m-d');
 
         $doctors = User::doctors()
             ->select('name')
