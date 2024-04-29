@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
-use App\Specialty;
-use App\WorkDay;
+use App\Models\Specialty;
+use App\Models\WorkDay;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -106,9 +106,10 @@ class DoctorController extends Controller
         //
     }
 
-    public function showHours(Request $request, $id) {
+    public function showHours(Request $request, $id)
+    {
         $workDays = WorkDay::where('user_id', $id)->get();
-        if(count($workDays) > 0) {
+        if (count($workDays) > 0) {
             $workDays->map(function ($workDay) {
                 $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
                 $workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
@@ -116,16 +117,15 @@ class DoctorController extends Controller
                 $workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
                 return $workDay;
             });
-
-        }else{
+        } else {
             $workDays = collect();
-            for ($i = 0; $i<7; ++$i)
-            $workDays->push(new WorkDay());
+            for ($i = 0; $i < 7; ++$i)
+                $workDays->push(new WorkDay());
         }
-        
+
         $days = $this->days;
 
-         
+
         return view('schedule', get_defined_vars());
     }
 

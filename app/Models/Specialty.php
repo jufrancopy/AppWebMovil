@@ -1,15 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
+
+use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Specialty extends Model
 {
-    protected $fillable= ['name', 'description'];
+    protected $fillable = ['name', 'description'];
 
-    public function users(){
-        
+    public function users()
+    {
+
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Specialty;
+use App\Models\Specialty;
 
 use App\Http\Controllers\Controller;
 
@@ -35,12 +35,12 @@ class SpecialtyController extends Controller
             'name.required' => 'Es necesario ingresar un nombre',
             'name.min' => 'El nombre debe contener al menos 3 caracteres.'
         ];
-        $this->validate($request,$rules,$messages);
+        $this->validate($request, $rules, $messages);
     }
 
     public function store(Request $request)
     {
-        
+
         $this->performValidation($request);
         $specialty = Specialty::create($request->all());
         $notification = 'Especialidad agregada correctamente!';
@@ -59,15 +59,16 @@ class SpecialtyController extends Controller
         $specialty->fill($request->all());
         $specialty->save();
         $notification = 'Especialidad editada correctamente!';
-        
+
         return redirect('/specialties')->with(compact('notification'));
     }
 
-    public function destroy(Specialty $specialty){
+    public function destroy(Specialty $specialty)
+    {
         $deletedName = $specialty->name;
         $specialty->delete();
-        $notification = 'Especialidad '.$deletedName.' eliminada correctamente!';
-        
+        $notification = 'Especialidad ' . $deletedName . ' eliminada correctamente!';
+
         return redirect('/specialties')->with(compact('notification'));
     }
 }

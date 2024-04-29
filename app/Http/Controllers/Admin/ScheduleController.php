@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\WorkDay;
+use App\Models\WorkDay;
 use Carbon\Carbon;
 
 class ScheduleController extends Controller
@@ -21,7 +21,7 @@ class ScheduleController extends Controller
     public function edit()
     {
         $workDays = WorkDay::where('user_id', auth()->id())->get();
-        if(count($workDays) > 0) {
+        if (count($workDays) > 0) {
             $workDays->map(function ($workDay) {
                 $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
                 $workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
@@ -29,15 +29,14 @@ class ScheduleController extends Controller
                 $workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
                 return $workDay;
             });
-
-        }else{
+        } else {
             $workDays = collect();
-            for ($i = 0; $i<7; ++$i)
-            $workDays->push(new WorkDay());
+            for ($i = 0; $i < 7; ++$i)
+                $workDays->push(new WorkDay());
         }
-        
+
         $days = $this->days;
-        
+
         return view('schedule', get_defined_vars());
     }
 
@@ -53,17 +52,17 @@ class ScheduleController extends Controller
 
         for ($i = 0; $i < 7; ++$i) {
             if ($morning_start[$i] > $morning_end[$i]) {
-                $errors[] = 'Las horas del turno mañana son inconsistentes para el dia ' .$this->days[$i] . '.';
+                $errors[] = 'Las horas del turno mañana son inconsistentes para el dia ' . $this->days[$i] . '.';
             }
             if ($afternoon_start[$i] > $afternoon_end[$i]) {
-                $errors[] = 'Las horas del turno tarde son inconsistentes para el dia ' .$this->days[$i] . '.';
+                $errors[] = 'Las horas del turno tarde son inconsistentes para el dia ' . $this->days[$i] . '.';
             }
 
             WorkDay::updateOrCreate(
                 [
                     'day' => $i,
                     // 'user_id' => auth()->id(),
-                    'user_id'=>$request->doctor_id
+                    'user_id' => $request->doctor_id
                 ],
                 [
                     'active' => in_array($i, $active),
@@ -78,6 +77,6 @@ class ScheduleController extends Controller
             return back()->with(compact('errors'));
 
         $notification = "Los cambios se han guardado correctamente.";
-            return back()->with(compact('notification'));
+        return back()->with(compact('notification'));
     }
 }

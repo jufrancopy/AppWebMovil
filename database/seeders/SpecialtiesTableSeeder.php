@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Specialty;
-use App\User;
+use App\Models\Specialty;
+use App\Models\User;
 
 class SpecialtiesTableSeeder extends Seeder
 {

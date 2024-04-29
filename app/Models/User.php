@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use App\Appointment;
+use App\Models\Appointment;
 
 
 class User extends Authenticatable
@@ -65,7 +65,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class, 'doctor_id')->where('status', 'Cancelada');
     }
-    
+
     public function asPatientAppointments()
     {
         return $this->hasMany(Appointment::class, 'patient_id');

@@ -1,11 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CancelledAppointment;
+use App\Models\Specialty;
+use App\Models\User;
 
 class Appointment extends Model
 {

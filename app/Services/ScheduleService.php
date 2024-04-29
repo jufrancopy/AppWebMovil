@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-use App\Appointment;
+use App\Models\Appointment;
 use App\Interfaces\ScheduleServiceInterface;
-use App\WorkDay;
+use App\Models\WorkDay;
 use Carbon\Carbon;
 
 class ScheduleService implements ScheduleServiceInterface
 {
-    private function getDayFromDate($date){
+    private function getDayFromDate($date)
+    {
         $dateCarbon = new Carbon($date);
         $i          = $dateCarbon->dayOfWeek;
         $day        = ($i == 0 ? 6 : $i - 1);
@@ -17,16 +18,18 @@ class ScheduleService implements ScheduleServiceInterface
         return $day;
     }
 
-    public function isAvailableInterval($date, $doctorId, Carbon $start){
+    public function isAvailableInterval($date, $doctorId, Carbon $start)
+    {
         $exists = Appointment::where('doctor_id', $doctorId)
-                ->where('scheduled_date', $date)
-                ->where('scheduled_time', $start->format('H:i:s'))
-                ->exists();
+            ->where('scheduled_date', $date)
+            ->where('scheduled_time', $start->format('H:i:s'))
+            ->exists();
 
         return !$exists; //available if already none exist
     }
 
-    public function getAvailableIntervals($date, $doctorId){
+    public function getAvailableIntervals($date, $doctorId)
+    {
         $workDay   = WorkDay::where('active', true)
             ->where('day', $this->getDayFromDate($date))
             ->where('user_id', $doctorId)
@@ -62,7 +65,8 @@ class ScheduleService implements ScheduleServiceInterface
         return $data;
     }
 
-    private function getIntervals($start, $end, $date, $doctorId){
+    private function getIntervals($start, $end, $date, $doctorId)
+    {
 
         $start = new Carbon($start);
         $end = new Carbon($end);
@@ -72,7 +76,7 @@ class ScheduleService implements ScheduleServiceInterface
             $interval = [];
 
             $interval['start'] =    $start->format('g:i A');
-            
+
             //No existe una cita para esta hora con este médico
             $available = $this->isAvailableInterval($date, $doctorId, $start);
 

@@ -1,16 +1,22 @@
 /* Estilo para botón circular */
 .btn-circle {
     display: inline-block;
-    width: 40px; /* Ajusta el tamaño según sea necesario */
-    height: 40px; /* Ajusta el tamaño según sea necesario */
-    border-radius: 50% !important; /* Hace que el botón sea circular */
+    width: 35px;
+    /* Ajusta el tamaño según sea necesario */
+    height: 35px;
+    /* Ajusta el tamaño según sea necesario */
+    border-radius: 50% !important;
+    /* Hace que el botón sea circular */
     text-align: center !important;
-    padding: 0 ;
-    line-height: 40px !important; /* Ajusta el tamaño según sea necesario */
+    padding: 0;
+    line-height: 15px !important;
+    /* Ajusta el tamaño según sea necesario */
 }
 
 /* Estilo para icono dentro del botón circular */
 .btn-circle i {
-    font-size: 18px !important; /* Ajusta el tamaño del icono según sea necesario */
-    color: white !important; /* Color del icono */
+    font-size: 20px !important;
+    /* Ajusta el tamaño del icono según sea necesario */
+    color: white !important;
+    /* Color del icono */
 }

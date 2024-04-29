@@ -6,26 +6,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interfaces\ScheduleServiceInterface;
 use Carbon\Carbon;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
-use App\Specialty;
-use App\Appointment;
-use App\CancelledAppointment;
+use App\Models\Specialty;
+use App\Models\Appointment;
+use App\Models\CancelledAppointment;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
         $role = auth()->user()->role;
-        if($role == 'admin'){
+        if ($role == 'admin') {
             $pendingAppointments = Appointment::where('status', 'Reservada')
                 ->paginate(10);
             $confirmedAppointments = Appointment::where('status', 'Confirmada')
                 ->paginate(10);
             $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
                 ->paginate(10);
-        }
-        elseif ($role == 'doctor') {
+        } elseif ($role == 'doctor') {
             $pendingAppointments = Appointment::where('status', 'Reservada')
                 ->where('doctor_id', Auth()->id())
                 ->paginate(10);
@@ -35,7 +34,7 @@ class AppointmentController extends Controller
             $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
                 ->where('doctor_id', Auth()->id())
                 ->paginate(10);
-        }elseif ($role == 'patient') {
+        } elseif ($role == 'patient') {
             $pendingAppointments = Appointment::where('status', 'Reservada')
                 ->where('patient_id', Auth()->id())
                 ->paginate(10);

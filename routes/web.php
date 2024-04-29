@@ -46,6 +46,15 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     Route::get('/charts/appoinments/line', 'ChartController@appointments');
     Route::get('/charts/doctors/column', 'ChartController@doctorAppointments');
     Route::get('/charts/doctors/column/data', 'ChartController@doctorAppointmentsJson');
+
+    //Studies
+    Route::resource('studies', 'StudyController');
+    Route::get('studies/{study}/confirmDelete', 'ItemController@confirmDelete')->name('studies.confirmDelete');
+
+    //
+    Route::resource('items', 'ItemController');
+    Route::get('items/{item}/confirmDelete', 'ItemController@confirmDelete')->name('items.confirmDelete');
+    Route::put('items/{item}/restore', 'ItemController@restore')->name('items.restore');
 });
 
 // Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {

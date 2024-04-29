@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 
@@ -14,7 +14,7 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+
 
     public function index()
     {
@@ -30,7 +30,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view ('patients.create');
+        return view('patients.create');
     }
 
     /**
@@ -51,11 +51,12 @@ class PatientController extends Controller
         $this->validate($request, $rules);
         User::create(
             $request->only('name', 'email', 'ci', 'address', 'phone')
-        + [
-            'role'      =>  'patient',
-            'password'  =>  bcrypt($request->input('password')),
-        ]);
-        $notification = 'El paciente ha sido registrado correctamente';    
+                + [
+                    'role'      =>  'patient',
+                    'password'  =>  bcrypt($request->input('password')),
+                ]
+        );
+        $notification = 'El paciente ha sido registrado correctamente';
 
 
         return redirect('/patients')->with(compact('notification'));
@@ -83,7 +84,7 @@ class PatientController extends Controller
         $patient = User::patients()->findOrFail($id);
 
 
-        return view ('patients.edit', get_defined_vars());
+        return view('patients.edit', get_defined_vars());
     }
 
     /**
@@ -106,13 +107,13 @@ class PatientController extends Controller
         $user = User::patients()->findOrFail($id);
         $data = $request->only('name', 'email', 'ci', 'address', 'phone');
         $password = $request->input('password');
-        
+
         if ($password)
             $data['password'] = bcrypt($password);
         $user->fill($data);
         $user->save();
 
-        $notification = 'La información del paciente se ha actualizado correctamente';    
+        $notification = 'La información del paciente se ha actualizado correctamente';
 
         return redirect('/patients')->with(compact('notification'));
     }
@@ -127,7 +128,7 @@ class PatientController extends Controller
     {
         $patientName = $patient->name;
         $patient->delete();
-        
+
         $notification = "El paciente $patientName ha sido eliminado del sistema";
 
         return redirect('/patients')->with(compact('notification'));

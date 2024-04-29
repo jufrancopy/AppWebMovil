@@ -19,7 +19,7 @@
         <span>Soporte</span>
     </a>
     <div class="dropdown-divider"></div>
-    <a href="{{route('logout')}}" class="dropdown-item"
+    <a href="{{ route('logout') }}" class="dropdown-item"
         onclick="event.preventDefault();document.getElementById('formLogout').submit();">
         <i class="ni ni-user-run"></i>
         <span>Cerrar Sesion</span>

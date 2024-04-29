@@ -18,6 +18,13 @@
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
     @yield('styles')
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('notification').style.display = 'none';
+        }, 5000); // Ocultar la notificación después de 5000 milisegundos (5 segundos)
+    </script>
+
 </head>
 
 <body>
@@ -158,6 +165,7 @@
     <!-- Argon JS -->
     @yield('scripts')
     <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
-    < </body>
+
+</body>
 
 </html>
