@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->decimal('price');
             $table->enum('type', ['supplies', 'medicines']);
             $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
-            $table->softDeletes(); // Agregar Soft Deletes
+            $table->softDeletes();
             $table->timestamps();
         });
     }

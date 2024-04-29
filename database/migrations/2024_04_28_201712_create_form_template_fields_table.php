@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClinicalRecordFieldsTable extends Migration
+class CreateFormTemplateFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,15 @@ class CreateClinicalRecordFieldsTable extends Migration
     public function up()
     {
         //La tabla de campos de los registros clinicos
-        Schema::create('clinical_record_fields', function (Blueprint $table) {
+        Schema::create('form_template_fields', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('clinical_record_id');
             $table->enum('type', ['text', 'textarea', 'select', 'checkbox', 'radio']); // Ejemplo de tipos de campos
 
             //Relacion
-            $table->foreign('clinical_record_id')->references('id')->on('clinical_record_templates');
+            $table->foreign('clinical_record_id')->references('id')->on('form_templates');
+            $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
+            $table->softDeletes();
 
             $table->timestamps();
         });
@@ -33,6 +35,6 @@ class CreateClinicalRecordFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clinical_record_fields');
+        Schema::dropIfExists('form_template_fields');
     }
 }

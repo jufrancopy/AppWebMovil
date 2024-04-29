@@ -18,6 +18,8 @@ class CreateAppointmentHasItemsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('appointment_id');
             $table->morphs('item');
+            $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
+            $table->softDeletes();
             $table->timestamps();
         });
     }

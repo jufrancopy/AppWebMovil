@@ -19,6 +19,8 @@ class CreateStudiesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->decimal('price');
+            $table->text('delete_reason')->nullable();
+            $table->softDeletes();  
             $table->timestamps();
         });
     }

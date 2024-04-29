@@ -27,6 +27,9 @@ class CreateClinicalRecordsTable extends Migration
             $table->unsignedBigInteger('appointment_id')->nullable();
             $table->foreign('appointment_id')->references('id')->on('appointments');
 
+            $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

@@ -1,22 +1,27 @@
-/* Estilo para botón circular */
 .btn-circle {
-    display: inline-block;
-    width: 35px;
-    /* Ajusta el tamaño según sea necesario */
-    height: 35px;
-    /* Ajusta el tamaño según sea necesario */
-    border-radius: 50% !important;
-    /* Hace que el botón sea circular */
+    width: 30px ;
+    height: 30px ;
     text-align: center !important;
-    padding: 0;
-    line-height: 15px !important;
-    /* Ajusta el tamaño según sea necesario */
-}
-
-/* Estilo para icono dentro del botón circular */
-.btn-circle i {
-    font-size: 20px !important;
-    /* Ajusta el tamaño del icono según sea necesario */
-    color: white !important;
-    /* Color del icono */
-}
+    padding: 6px 0 !important;
+    font-size: 12px !important;
+    line-height: 1.428571429 !important;
+    border-radius: 15px !important;
+  }
+  
+  .btn-circle.btn-lg {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 10px 16px !important;
+    font-size: 18px !important;
+    line-height: 1.33 !important;
+    border-radius: 25px !important;
+  }
+  
+  .btn-circle.btn-lx {
+    width: 570px !important;
+    height: 70px !important;
+    padding: 10px 16px !important;
+    font-size: 24px !important;
+    line-height: 1.33 !important;
+    border-radius: 35px !important;
+  }

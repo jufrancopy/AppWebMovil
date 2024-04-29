@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClinicalRecordTemplatesTable extends Migration
+class CreateFormTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class CreateClinicalRecordTemplatesTable extends Migration
     public function up()
     {
         //La tabla sirve para generar un plantilla de Formulario para los registros clinicos
-        Schema::create('clinical_record_templates', function (Blueprint $table) {
+        Schema::create('form_templates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateClinicalRecordTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clinical_record_templates');
+        Schema::dropIfExists('form_templates');
     }
 }

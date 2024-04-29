@@ -49,12 +49,17 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
 
     //Studies
     Route::resource('studies', 'StudyController');
-    Route::get('studies/{study}/confirmDelete', 'ItemController@confirmDelete')->name('studies.confirmDelete');
-
+    Route::get('studies/{study}/confirmDelete', 'StudyController@confirmDelete')->name('studies.confirmDelete');
+    Route::put('studies/{stuty}/restore', 'StudyController@restore')->name('studies.restore');
     //
     Route::resource('items', 'ItemController');
     Route::get('items/{item}/confirmDelete', 'ItemController@confirmDelete')->name('items.confirmDelete');
     Route::put('items/{item}/restore', 'ItemController@restore')->name('items.restore');
+
+    
+    Route::resource('form-templates', 'FormTemplateController');
+    Route::get('form-templates/{formTemplate}/confirmDelete', 'FormTemplateController@confirmDelete')->name('form-templates.confirmDelete');
+    Route::put('form-templates/{formTemplate}/restore', 'FormTemplateController@restore')->name('form-templates.restore');
 });
 
 // Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {

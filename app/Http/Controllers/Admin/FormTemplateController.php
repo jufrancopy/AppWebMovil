@@ -3,48 +3,42 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\FormTemplate;
 use Illuminate\Support\Facades\Validator;
 
-class ItemController extends Controller
+
+class FormTemplateController extends Controller
 {
     public function index()
     {
-        $items = Item::paginate(10);
-        
-        $trashedItems = Item::onlyTrashed()->get();
+        $templates = FormTemplate::paginate(10);
 
-        return view('admin.items.index', compact(['items', 'trashedItems']));
+        $trashedTemplates = FormTemplate::onlyTrashed()->paginate(10);
+
+        return view('admin.forms.form-templates.index', compact(['templates', 'trashedTemplates']));
     }
 
     public function create()
     {
-        return view('admin.items.create');
+        return view('admin.forms.form-templates.create');
     }
 
     public function store(Request $request)
     {
         // Reglas de validación
         $rules = [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'type' => 'required|in:supplies,medicines',
+            'name' => 'required'
         ];
 
         // Mensajes de validación
         $messages = [
             'required' => 'El campo :attribute es requerido.',
-            'in' => 'El campo :attribute debe ser uno de :values.',
         ];
 
         // Nombres de atributos personalizados
         $attributes = [
-            'name' => 'Nombre',
-            'description' => 'Descripción',
-            'price' => 'Precio',
-            'type' => 'Tipo',
+            'name' => 'Nombre'
         ];
 
         // Validar los datos recibidos en la solicitud
@@ -56,44 +50,32 @@ class ItemController extends Controller
         }
 
         // Crear un nuevo item
-        $item = Item::create([
+        $item = FormTemplate::create([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'type' => $request->input('type'),
         ]);
 
         // Redireccionar con una notificación
-        $notification = 'El item ha sido registrado correctamente';
+        $notification = 'La plantilla ha sido registrada correctamente';
         return redirect('items')->with(compact('notification'));
     }
 
-    public function edit(Item $item)
+    public function edit(FormTemplate $formTemplate)
     {
-        return view('admin.items.edit', compact('item'));
+        return view('admin.forms.form-templates.edit', compact('formTemplate'));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(Request $request, FormTemplate $item)
     {
         $rules = [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'type' => 'required',
+            'name' => 'required'
         ];
 
         $messages = [
-            'required'          => 'El campo :attribute es requerido.',
-            'required'          => 'El campo :attribute es requerido.',
-            'required'          => 'El campo :attribute es requerido',
-            'required'          => 'El campo :attribute es requerido',
+            'required'          => 'El campo :attribute es requerido.'
         ];
 
         $attributes = [
-            'name'              => 'Nombre',
-            'description'       => 'Descripción',
-            'price'             => 'Precio',
-            'type'              => 'Tipo',
+            'name'              => 'Nombre'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages, $attributes);
@@ -116,12 +98,12 @@ class ItemController extends Controller
         return redirect('items')->with(compact('notification'));
     }
 
-    public function confirmDelete(Item $item)
+    public function confirmDelete(FormTemplate $formTemplate)
     {
-        return view('admin.items.delete', compact('item'));
+        return view('admin.forms.form-templates.delete', compact('formTemplate'));
     }
 
-    public function destroy(Request $request, Item $item)
+    public function destroy(Request $request, FormTemplate $formTemplate)
     {
         // Definir reglas de validación
         $rules = [
@@ -153,25 +135,25 @@ class ItemController extends Controller
         $deleteReason = $request->delete_reason === 'other' ? "Otro: " . $request->delete_reason_other : $request->delete_reason;
 
         // Guardar el motivo de eliminación en el modelo
-        $item->delete_reason = $deleteReason;
-        $item->save();
+        $formTemplate->delete_reason = $deleteReason;
+        $formTemplate->save();
 
         // Eliminar el formulario
-        $item->delete();
+        $formTemplate->delete();
 
-        return redirect('items')->with('notification', 'El Ítem ha sido eliminado correctamente');
+        return redirect('form-templates')->with('notification', 'El Formulario ha sido eliminado correctamente');
     }
 
     public function showTrash()
     {
-        $trashedItems = Item::onlyTrashed()->get();
+        $trashedItems = FormTemplate::onlyTrashed()->get();
 
         return view('items.trash', compact('trashedItems'));
     }
 
     public function restore($id)
     {
-        $item = Item::onlyTrashed()->findOrFail($id);
+        $item = FormTemplate::onlyTrashed()->findOrFail($id);
         $item->restore();
 
         return redirect()->back()->with('notification', 'El ítem ha sido restaurado correctamente');

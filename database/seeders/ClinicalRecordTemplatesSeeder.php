@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Item;
+use App\Models\FormTemplate;
 use Illuminate\Database\Seeder;
 
-class ItemsTableSeeder extends Seeder
+class ClinicalRecordTemplatesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,17 +17,12 @@ class ItemsTableSeeder extends Seeder
         // Datos de ejemplo para los items
         $items = [
             [
-                'name' => 'Gasas estériles',
-                'description' => 'Gasas de algodón para uso médico estériles.',
-                'price' => 10.50,
-                'type' => 'supplies',
+                'name' => 'Formulario de Consentimiento Informado',
                 'delete_reason' => null,
             ],
+
             [
-                'name' => 'Paracetamol',
-                'description' => 'Medicamento analgésico y antipirético.',
-                'price' => 5.75,
-                'type' => 'medicines',
+                'name' => 'Formulario Quirúrgico',
                 'delete_reason' => null,
             ],
             // Agrega más datos de ejemplo según sea necesario
@@ -35,9 +30,8 @@ class ItemsTableSeeder extends Seeder
 
         // Insertar los datos en la tabla items
         foreach ($items as $item) {
-            Item::create($item);
+            FormTemplate::create($item);
         }
 
-        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClinicalRecordTemplate;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UsersTableSeeder;
 use Database\Seeders\SpecialtiesTableSeeder;
@@ -23,6 +24,8 @@ class DatabaseSeeder extends Seeder
             AppointmentsTableSeeder::class,
             StudiesTableSeeder::class,
             ItemsTableSeeder::class,
+            FormTemplateSeeder::class,
+            FormTemplateFieldSeeder::class
         ]);
     }
 }
