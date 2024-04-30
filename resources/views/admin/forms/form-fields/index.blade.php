@@ -7,27 +7,27 @@
                 <div class="col">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="templates-tab" data-toggle="tab" href="#templates" role="tab"
-                                aria-controls="templates" aria-selected="true">Ítems</a>
+                            <a class="nav-link active" id="fields-tab" data-toggle="tab" href="#fields" role="tab"
+                                aria-controls="fields" aria-selected="true">Campos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="trash-tab" data-toggle="tab" href="#trash" role="tab"
                                 aria-controls="trash" aria-selected="false">
                                 Papelera
-                                @if ($trashedTemplates->count() > 0)
-                                    <span class="badge badge-danger">{{ $trashedTemplates->count() }}</span>
+                                @if ($trashedFields->count() > 0)
+                                    <span class="badge badge-danger">{{ $trashedFields->count() }}</span>
                                 @endif
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col text-right">
-                    <a href="{{ url('form-templates/create') }}" class="btn btn-sm btn-success">Nueva Plantilla</a>
+                    <a href="{{ url('form-fields/create') }}" class="btn btn-sm btn-success">Nuevo Campo</a>
                 </div>
             </div>
         </div>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="templates" role="tabpanel" aria-labelledby="templates-tab">
+            <div class="tab-pane fade show active" id="fields" role="tabpanel" aria-labelledby="fields-tab">
                 <div class="table-responsive">
                     <div class="card-body">
                         @if (session('notification'))
@@ -37,28 +37,34 @@
                         @endif
                     </div>
 
-                    <!-- Projects table -->
+                    <!-- Fields table -->
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">Campo</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Plantilla</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($templates as $template)
+                            @foreach ($fields as $field)
                                 <tr>
                                     <th scope="row">
-                                        {{ $template->name }}
+                                        {{ $field->name }}
                                     </th>
+                                    <th scope="row">
+                                        {{ $field->type }}
+                                    </th>
+                                    <td>{{ $field->template->name }}</td>
                                     <td>
-                                        <form action="{{ url('form-templates/' . $template->id) }}" method="POST">
+                                        <form action="{{ url('form-fields/' . $field->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <a href="{{ url('form-templates/' . $template->id . '/edit') }}"
+                                            <a href="{{ url('form-fields/' . $field->id . '/edit') }}"
                                                 class="btn btn-primary btn-sm btn-circle"><i class="fa fa-edit"></i></a>
 
-                                            <a href="{{ route('form-templates.confirmDelete', $template->id) }}"
+                                            <a href="{{ route('form-fields.confirmDelete', $field->id) }}"
                                                 class="btn btn-danger btn-sm btn-circle"><i class="fa fa-trash"></i></a>
 
                                         </form>
@@ -69,14 +75,14 @@
                     </table>
                 </div>
                 <div class="card-body">
-                    {{ $templates->links() }}
+                    {{ $fields->links() }}
                 </div>
             </div>
 
             <!-- Papelera -->
             <div class="tab-pane fade" id="trash" role="tabpanel" aria-labelledby="trash-tab">
                 <div class="table-responsive">
-                    <!-- Projects table -->
+                    <!-- Fields table -->
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
@@ -86,13 +92,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($trashedTemplates as $template)
+                            @foreach ($trashedFields as $field)
                                 <tr>
                                     <th scope="row">
-                                        {{ $template->name }}
+                                        {{ $field->name }}
                                     </th>
                                     <td>
-                                        @switch($template->delete_reason)
+                                        @switch($field->delete_reason)
                                             @case('sin_uso')
                                                 Sin USO
                                             @break
@@ -102,11 +108,11 @@
                                             @break
 
                                             @default
-                                                {{ $template->delete_reason }}
+                                                {{ $field->delete_reason }}
                                         @endswitch
                                     </td>
                                     <td>
-                                        <form action="{{ route('form-templates.restore', $template->id) }}" method="POST">
+                                        <form action="{{ route('form-fields.restore', $field->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="btn btn-success btn-sm btn-circle">
@@ -120,10 +126,9 @@
                     </table>
                 </div>
                 <div class="card-body">
-                    {{ $trashedTemplates->links() }}
+                    {{ $trashedFields->links() }}
                 </div>
             </div>
-
         </div>
 
     </div>

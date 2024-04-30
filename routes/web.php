@@ -60,6 +60,13 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     Route::resource('form-templates', 'FormTemplateController');
     Route::get('form-templates/{formTemplate}/confirmDelete', 'FormTemplateController@confirmDelete')->name('form-templates.confirmDelete');
     Route::put('form-templates/{formTemplate}/restore', 'FormTemplateController@restore')->name('form-templates.restore');
+
+    Route::resource('form-fields', 'FormFieldController');
+    Route::get('form-fields/{formField}/confirmDelete', 'FormFieldController@confirmDelete')->name('form-fields.confirmDelete');
+    Route::put('form-fields/{formField}/restore', 'FormFieldController@restore')->name('form-fields.restore');
+
+    Route::view('odontograma', 'admin.odontograma.index');
+
 });
 
 // Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {

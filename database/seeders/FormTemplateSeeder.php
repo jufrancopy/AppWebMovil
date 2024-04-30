@@ -17,12 +17,12 @@ class FormTemplateSeeder extends Seeder
         // Datos de ejemplo para los items
         $templates = [
             [
-                'name' => 'Formulario de Consentimiento Informado',
+                'name' => 'Plantilla de Historia Clínica General',
                 'delete_reason' => null,
             ],
 
             [
-                'name' => 'Formulario Quirúrgico',
+                'name' => 'Plantilla de Examen Físico',
                 'delete_reason' => null,
             ],
             // Agrega más datos de ejemplo según sea necesario

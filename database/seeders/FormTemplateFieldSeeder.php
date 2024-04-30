@@ -17,17 +17,20 @@ class FormTemplateFieldSeeder extends Seeder
         // Datos de ejemplo para los items
         $fields = [
             [
-                'clinical_record_id' => 1,
+                'name'=>'Presión arterial',
+                'form_template_id' => 1,
                 'type' => 'text',
             ],
 
             [
-                'clinical_record_id' => 1,
+                'name'=>'Peso',
+                'form_template_id' => 1,
                 'type' => 'textarea',
             ],
 
             [
-                'clinical_record_id' => 1,
+                'name'=>'Estatura',
+                'form_template_id' => 1,
                 'type' => 'checkbox',
             ],
             

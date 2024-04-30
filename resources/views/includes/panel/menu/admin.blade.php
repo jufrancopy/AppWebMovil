@@ -41,3 +41,11 @@
         <i class="ni ni-basket text-primary"></i> Formularios
     </a>
 </li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('form-fields.index') }}">
+        <i class="ni ni-basket text-primary"></i> Campos
+    </a>
+</li>
+
+

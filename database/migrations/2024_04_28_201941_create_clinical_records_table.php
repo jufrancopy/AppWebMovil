@@ -18,6 +18,18 @@ class CreateClinicalRecordsTable extends Migration
             $table->id();
             $table->text('detail');
 
+            // Agregar columna para la referencia al estudio asociado
+            $table->unsignedBigInteger('study_id')->nullable();
+            $table->foreign('study_id')->references('id')->on('studies');
+
+            // Agregar columna para la referencia al ítem asociado
+            $table->unsignedBigInteger('item_id')->nullable();
+            $table->foreign('item_id')->references('id')->on('items');
+
+            // Agregar columna para la referencia a la plantilla de formulario
+            $table->unsignedBigInteger('form_template_id')->nullable();
+            $table->foreign('form_template_id')->references('id')->on('form_templates');
+
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('users');
 

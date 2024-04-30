@@ -10,10 +10,10 @@ class FormTemplateField extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['clinical_record_id', 'type'];
+    protected $fillable = ['name', 'form_template_id', 'type'];
 
     public function template()
     {
-        return $this->belongsTo(FormTemplate::class, 'clinical_record_id');
+        return $this->belongsTo(FormTemplate::class, 'form_template_id');
     }
 }
