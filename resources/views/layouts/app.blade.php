@@ -19,6 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- Odontograma --}}
+    <link href="{{ asset('css/odontograma.css') }}" rel="stylesheet">
 </head>
 
 <body>
