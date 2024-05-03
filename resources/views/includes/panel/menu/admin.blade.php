@@ -48,4 +48,10 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('odontogram') }}">
+        <i class="fa fa-tooth"></i> Odontograma
+    </a>
+</li>
+
 

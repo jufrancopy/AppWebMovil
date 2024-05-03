@@ -1,295 +1,247 @@
+function replaceAll(find, replace, str) {
+    return str.replace(new RegExp(find, "g"), replace);
+}
+
+function createOdontogram() {
+    var htmlLecheLeft = "",
+        htmlLecheRight = "",
+        htmlLeft = "",
+        htmlRight = "",
+        a = 1;
+    for (var i = 9 - 1; i >= 1; i--) {
+        //Dientes Definitivos Cuandrante Derecho (Superior/Inferior)
+        htmlRight +=
+            '<div data-name="value" id="dienteindex' +
+            i +
+            '" class="diente">' +
+            '<span style="margin-left: 45px; margin-bottom:5px; display: inline-block !important; border-radius: 10px !important;" class="label label-info">index' +
+            i +
+            "</span>" +
+            '<div id="tindex' +
+            i +
+            '" class="cuadro click">' +
+            "</div>" +
+            '<div id="lindex' +
+            i +
+            '" class="cuadro izquierdo click">' +
+            "</div>" +
+            '<div id="bindex' +
+            i +
+            '" class="cuadro debajo click">' +
+            "</div>" +
+            '<div id="rindex' +
+            i +
+            '" class="cuadro derecha click click">' +
+            "</div>" +
+            '<div id="cindex' +
+            i +
+            '" class="centro click">' +
+            "</div>" +
+            "</div>";
+        //Dientes Definitivos Cuandrante Izquierdo (Superior/Inferior)
+        htmlLeft +=
+            '<div id="dienteindex' +
+            a +
+            '" class="diente">' +
+            '<span style="margin-left: 45px; margin-bottom:5px; display: inline-block !important; border-radius: 10px !important;" class="label label-info">index' +
+            a +
+            "</span>" +
+            '<div id="tindex' +
+            a +
+            '" class="cuadro click">' +
+            "</div>" +
+            '<div id="lindex' +
+            a +
+            '" class="cuadro izquierdo click">' +
+            "</div>" +
+            '<div id="bindex' +
+            a +
+            '" class="cuadro debajo click">' +
+            "</div>" +
+            '<div id="rindex' +
+            a +
+            '" class="cuadro derecha click click">' +
+            "</div>" +
+            '<div id="cindex' +
+            a +
+            '" class="centro click">' +
+            "</div>" +
+            "</div>";
+        if (i <= 5) {
+            //Dientes Temporales Cuandrante Derecho (Superior/Inferior)
+            htmlLecheRight +=
+                '<div id="dienteLindex' +
+                i +
+                '" style="left: -25%;" class="diente-leche">' +
+                '<span style="margin-left: 45px; margin-bottom:5px; display: inline-block !important; border-radius: 10px !important;" class="label label-primary">index' +
+                i +
+                "</span>" +
+                '<div id="tlecheindex' +
+                i +
+                '" class="cuadro-leche top-leche click">' +
+                "</div>" +
+                '<div id="llecheindex' +
+                i +
+                '" class="cuadro-leche izquierdo-leche click">' +
+                "</div>" +
+                '<div id="blecheindex' +
+                i +
+                '" class="cuadro-leche debajo-leche click">' +
+                "</div>" +
+                '<div id="rlecheindex' +
+                i +
+                '" class="cuadro-leche derecha-leche click click">' +
+                "</div>" +
+                '<div id="clecheindex' +
+                i +
+                '" class="centro-leche click">' +
+                "</div>" +
+                "</div>";
+        }
+        if (a < 6) {
+            //Dientes Temporales Cuandrante Izquierdo (Superior/Inferior)
+            htmlLecheLeft +=
+                '<div id="dienteLindex' +
+                a +
+                '" class="diente-leche">' +
+                '<span style="margin-left: 45px; margin-bottom:5px; display: inline-block !important; border-radius: 10px !important;" class="label label-primary">index' +
+                a +
+                "</span>" +
+                '<div id="tlecheindex' +
+                a +
+                '" class="cuadro-leche top-leche click">' +
+                "</div>" +
+                '<div id="llecheindex' +
+                a +
+                '" class="cuadro-leche izquierdo-leche click">' +
+                "</div>" +
+                '<div id="blecheindex' +
+                a +
+                '" class="cuadro-leche debajo-leche click">' +
+                "</div>" +
+                '<div id="rlecheindex' +
+                a +
+                '" class="cuadro-leche derecha-leche click click">' +
+                "</div>" +
+                '<div id="clecheindex' +
+                a +
+                '" class="centro-leche click">' +
+                "</div>" +
+                "</div>";
+        }
+        a++;
+    }
+    $("#tr").append(replaceAll("index", "1", htmlRight));
+    $("#tl").append(replaceAll("index", "2", htmlLeft));
+    $("#tlr").append(replaceAll("index", "5", htmlLecheRight));
+    $("#tll").append(replaceAll("index", "6", htmlLecheLeft));
+
+    $("#bl").append(replaceAll("index", "3", htmlLeft));
+    $("#br").append(replaceAll("index", "4", htmlRight));
+    $("#bll").append(replaceAll("index", "7", htmlLecheLeft));
+    $("#blr").append(replaceAll("index", "8", htmlLecheRight));
+}
+var arrayPuente = [];
 $(document).ready(function () {
-    function drawDiente(svg, parentGroup, diente) {
-        if (!diente) throw new Error("Error no se ha especificado el diente.");
+    createOdontogram();
 
-        var x = diente.x || 0,
-            y = diente.y || 0;
+    $(document).on("click", ".click", function () {
+        var control = $("#options").val();
+        $(this).removeClass("click-red click-blue");
 
-        var defaultPolygon = {
-            fill: "white",
-            stroke: "navy",
-            strokeWidth: 0.5,
-        };
-        var dienteGroup = createSVGElement("g", {
-            transform: "translate(" + x + "," + y + ")",
-        });
-        $(parentGroup).append(dienteGroup);
+        switch (control) {
+            case "fractura":
+                $(this).addClass("click-red");
+                break;
 
-        var caraSuperior = createPolygon(
-            dienteGroup,
-            [
-                [0, 0],
-                [20, 0],
-                [15, 5],
-                [5, 5],
-            ],
-            defaultPolygon
-        );
-        $(caraSuperior).data("cara", "S");
+            case "restauracion":
+                $(this).addClass("click-blue");
+                break;
 
+            case "extraccion":
+                var dienteSeleccionado = $(this).closest(
+                    ".diente, .diente-leche"
+                ); // Selecciona tanto dientes permanentes como temporales
+                dienteSeleccionado.find(".click").addClass("click-delete");
+                break;
 
-        var caraInferior = createPolygon(
-            dienteGroup,
-            [
-                [5, 15],
-                [15, 15],
-                [20, 20],
-                [0, 20],
-            ],
-            defaultPolygon
-        );
-        $(caraInferior).data("cara", "I");
-
-        var caraDerecha = createPolygon(
-            dienteGroup,
-            [
-                [15, 5],
-                [20, 0],
-                [20, 20],
-                [15, 15],
-            ],
-            defaultPolygon
-        );
-        $(caraDerecha).data("cara", "D");
-
-        var caraIzquierda = createPolygon(
-            dienteGroup,
-            [
-                [0, 0],
-                [5, 5],
-                [5, 15],
-                [0, 20],
-            ],
-            defaultPolygon
-        );
-        $(caraIzquierda).data("cara", "Z");
-
-        var caraCentral = createPolygon(
-            dienteGroup,
-            [
-                [5, 5],
-                [15, 5],
-                [15, 15],
-                [5, 15],
-            ],
-            defaultPolygon
-        );
-        $(caraCentral).data("cara", "C");
-
-        var caraCompleto = createText(
-            dienteGroup,
-            6,
-            30,
-            diente.id.toString(),
-            {
-                fill: "navy",
-                stroke: "navy",
-                strokeWidth: 0.1,
-                style: "font-size: 6pt;font-weight:normal",
-            }
-        );
-        $(caraCompleto).data("cara", "X");
-
-        //Busco los tratamientos aplicados al diente
-        var tratamientosAplicadosAlDiente = $.grep(vm.tratamientosAplicados(), function (t) {
-            var dienteId = t.diente().id;
-            if (!dienteId) {
-                return false; // Si el tratamiento no tiene diente o diente.id, lo ignoramos
-            }
-            return diente.id === dienteId; // Comparación correcta de IDs de diente
-        });
-
-        var caras = [];
-        caras["S"] = caraSuperior;
-        caras["C"] = caraCentral;
-        caras["X"] = caraCompleto;
-        caras["Z"] = caraIzquierda;
-        caras["D"] = caraDerecha;
-
-        $.each(tratamientosAplicadosAlDiente, function (index, t) {
-            if (caras[t.cara()]) {
-                $(caras[t.cara()]).attr("fill", "red");
-            } else {
-                console.log("Cara no encontrada para el tratamiento:", t);
-            }
-        });
-        [
-            caraCentral,
-            caraIzquierda,
-            caraDerecha,
-            caraInferior,
-            caraSuperior,
-            caraCompleto,
-        ].forEach(function (value) {
-            $(value).on("click", function () {
-                var me = this;
-                var cara = $(me).data("cara");
-
-                if (!vm.tratamientoSeleccionado) {
-                    alert("Debe seleccionar un tratamiento previamente.");
-                    return false;
+            case "extraer":
+                var dienteSeleccionado = $(this).closest(
+                    ".diente, .diente-leche"
+                ); // Selecciona tanto dientes permanentes como temporales
+                var crossHtml =
+                    '<i style="color:red; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);" class="fa fa-times fa-3x fa-fw'; // Clase base de la cruz
+                if (dienteSeleccionado.hasClass("diente-leche")) {
+                    // Agrega una clase adicional si es un diente temporal
+                    crossHtml += " cruz-temporal";
                 }
-                //Validamos el tratamiento
-                var tratamiento = vm.tratamientoSeleccionado();
+                crossHtml += '"></i>'; // Cierre de la etiqueta <i>
+                dienteSeleccionado
+                    .find(".centro, .centro-leche")
+                    .append(crossHtml); // Selecciona tanto centro de dientes permanentes como temporales
+                break;
 
-                if (cara == "X" && !tratamiento.aplicaDiente) {
-                    alert(
-                        "El tratamiento seleccionado no se puede aplicar a toda la pieza.",
-                    );
-                    return false;
-                }
-                if (cara != "X" && !tratamiento.aplicaCara) {
-                    alert(
-                        "El tratamiento seleccionado no se puede aplicar a una cara."
-                    );
-                    return false;
-                }
+            case "puente":
+                var dientePosition = $(this).offset(),
+                    leftPX;
+                var noDiente = $(this).parent().children().first().text();
+                var cuadrante = $(this).parent().parent().attr("id");
+                var left = 0,
+                    width = 0;
 
-                //TODO: Validaciones de si la cara tiene tratamiento o no, etc...
-                vm.tratamientosAplicados.push({
-                    diente: ko.observable(diente),
-                    cara: ko.observable(cara),
-                    tratamiento: ko.observable(tratamiento),
+                $(this).parent().children(".cuadro").css("border-color", "red");
+                arrayPuente.push({
+                    diente: noDiente,
+                    cuadrante: cuadrante,
+                    left: $(this)[0].offsetLeft,
+                    father: null,
                 });
 
-                vm.tratamientoSeleccionado(null);
+                var diferencia = Math.abs(
+                    parseInt(arrayPuente[1].diente) -
+                        parseInt(arrayPuente[1].father)
+                );
+                if (diferencia == 1) width = diferencia * 60;
+                else width = diferencia * 50;
 
-                //Actualizo el SVG
-                renderSvg();
-            });
+                if (arrayPuente[0].cuadrante == arrayPuente[1].cuadrante) {
+                    if (
+                        arrayPuente[0].cuadrante == "tr" ||
+                        arrayPuente[0].cuadrante == "tlr" ||
+                        arrayPuente[0].cuadrante == "br" ||
+                        arrayPuente[0].cuadrante == "blr"
+                    ) {
+                        if (arrayPuente[0].diente > arrayPuente[1].diente) {
+                            leftPX = parseInt(arrayPuente[0].left) + 10 + "px";
+                        } else {
+                            leftPX = parseInt(arrayPuente[1].left) + 10 + "px";
+                        }
+                    } else {
+                        if (arrayPuente[0].diente < arrayPuente[1].diente) {
+                            leftPX = "-45px";
+                        } else {
+                            leftPX = "45px";
+                        }
+                    }
+                }
 
-            $(value).on("mouseenter", function () {
-                var me = this;
-                $(me).data("oldFill", $(me).attr("fill"));
-                $(me).attr("fill", "yellow");
-            });
-
-            $(value).on("mouseleave", function () {
-                var me = this;
-                $(me).attr("fill", $(me).data("oldFill"));
-            });
-        });
-    }
-
-    function renderSvg() {
-        var svg = $("#odontograma")[0];
-        svg.innerHTML = "";
-        var parentGroup = createSVGElement("g", {
-            transform: "scale(1.5)",
-        });
-        $(svg).append(parentGroup);
-        var dientes = vm.dientes;
-        dientes.forEach(function (diente) {
-            drawDiente(svg, parentGroup, diente);
-        });
-    }
-
-    function createSVGElement(tag, attributes) {
-        var element = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            tag
-        );
-        for (var attribute in attributes) {
-            element.setAttribute(attribute, attributes[attribute]);
+                $(this)
+                    .parent()
+                    .append(
+                        '<div style="z-index: 9999; height: 5px; width:' +
+                            width +
+                            'px;" id="puente" class="click-red"></div>'
+                    );
+                $(this).parent().children().last().css({
+                    position: "absolute",
+                    top: "80px",
+                    left: leftPX,
+                });
+                break;
+            default:
+                console.log("borrar case");
         }
-        return element;
-    }
-
-    function createPolygon(parent, points, attributes) {
-        var polygon = createSVGElement("polygon", attributes);
-        var pointsString = points
-            .map(function (point) {
-                return point.join(",");
-            })
-            .join(" ");
-        $(polygon).attr("points", pointsString);
-        $(parent).append(polygon);
-        return polygon;
-    }
-
-    function createText(parent, x, y, content, attributes) {
-        var text = createSVGElement("text", attributes);
-        $(text).attr("x", x);
-        $(text).attr("y", y);
-        text.textContent = content;
-        $(parent).append(text);
-        return text;
-    }
-
-    //View Models
-    function DienteModel(id, x, y) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-    }
-
-    function ViewModel() {
-        var self = this; // Guardamos una referencia a "this" para usarla en el ámbito interno de ViewModel
-
-        self.tratamientosPosibles = ko.observableArray([]);
-        self.tratamientoSeleccionado = ko.observable(null);
-        self.tratamientosAplicados = ko.observableArray([]); // Ahora tratamientosAplicados es un observable array
-
-        self.quitarTratamiento = function (tratamiento) {
-            self.tratamientosAplicados.remove(tratamiento); // Utilizamos el método remove de ko.observableArray
-            renderSvg();
-        };
-
-        // Función para cargar los tratamientos desde el archivo JSON
-        self.cargarTratamientos = function () {
-            $.getJSON("/data/tratamientos.js", function (data) {
-                self.tratamientosPosibles(data);
-            }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Error al cargar tratamientos: " + err);
-            });
-        };
-
-        // Llamar a la función para cargar tratamientos al inicializar el ViewModel
-        self.cargarTratamientos();
-
-        //Cargo los dientes
-        var dientes = [];
-        //Dientes izquierdos
-        for (var i = 0; i < 8; i++) {
-            dientes.push(new DienteModel(18 - i, i * 25, 0));
-        }
-        for (var i = 3; i < 8; i++) {
-            dientes.push(new DienteModel(55 - i, i * 25, 1 * 40));
-        }
-        for (var i = 3; i < 8; i++) {
-            dientes.push(new DienteModel(85 - i, i * 25, 2 * 40));
-        }
-        for (var i = 0; i < 8; i++) {
-            dientes.push(new DienteModel(48 - i, i * 25, 3 * 40));
-        }
-        //Dientes derechos
-        for (var i = 0; i < 8; i++) {
-            dientes.push(new DienteModel(21 + i, i * 25 + 210, 0));
-        }
-        for (var i = 0; i < 5; i++) {
-            dientes.push(new DienteModel(61 + i, i * 25 + 210, 1 * 40));
-        }
-        for (var i = 0; i < 5; i++) {
-            dientes.push(new DienteModel(71 + i, i * 25 + 210, 2 * 40));
-        }
-        for (var i = 0; i < 8; i++) {
-            dientes.push(new DienteModel(31 + i, i * 25 + 210, 3 * 40));
-        }
-
-        self.dientes = dientes;
-    }
-
-
-    var vm = new ViewModel();
-    ko.applyBindings(vm);
-
-    //Inicializo SVG
-    var svgElement = $("#odontograma")[0];
-    svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svgElement.setAttribute("width", "620px");
-    svgElement.setAttribute("height", "250px");
-
-    //Cargo el estado del odontograma
-    renderSvg();
+        return false;
+    });
+    return false;
 });

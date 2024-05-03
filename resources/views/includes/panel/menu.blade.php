@@ -21,29 +21,29 @@
         </a>
     </li>
 
-</ul>
-<!-- Divider -->
-@if (auth()->user()->role == 'admin')
-    <hr class="my-3">
-    <!-- Heading -->
-    <h6 class="navbar-heading text-muted">Reportes</h6>
-    <!-- Navigation -->
-    <ul class="navbar-nav mb-md-3">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('/charts/appoinments/line') }}">
-                <i class="ni ni-sound-wave text-yellow"></i> Frecuencia de Citas
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('/charts/doctors/column') }}">
-                <i class="ni ni-spaceship text-orange"></i> Médicos + activos
-            </a>
-        </li>
+    <!-- Divider -->
+    @if (auth()->user()->role == 'admin')
+        <hr class="my-3">
+        <!-- Heading -->
+        <h6 class="navbar-heading text-muted">Reportes</h6>
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/charts/appoinments/line') }}">
+                    <i class="ni ni-sound-wave text-yellow"></i> Frecuencia de Citas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/charts/doctors/column') }}">
+                    <i class="ni ni-spaceship text-orange"></i> Médicos + activos
+                </a>
+            </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('/charts/doctors/column') }}">
-                <i class="ni ni-spaceship text-orange"></i> Otros
-            </a>
-        </li>
-@endif
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/charts/doctors/column') }}">
+                    <i class="ni ni-spaceship text-orange"></i> Otros
+                </a>
+            </li>
+        </ul>
+    @endif
 </ul>

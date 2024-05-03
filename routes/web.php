@@ -65,7 +65,7 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     Route::get('form-fields/{formField}/confirmDelete', 'FormFieldController@confirmDelete')->name('form-fields.confirmDelete');
     Route::put('form-fields/{formField}/restore', 'FormFieldController@restore')->name('form-fields.restore');
 
-    Route::view('odontograma', 'admin.odontograma.index');
+    Route::view('odontogram', 'admin.odontograma.index')->name('odontogram');
 
 });
 

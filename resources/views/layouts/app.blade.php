@@ -1,27 +1,40 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+Tienes algunas etiquetas que se repiten, como la inclusión del script de `app.js`, y hay una etiqueta de `
+<link>` sin especificar un href. Aquí tienes las correcciones:
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+1. Elimina la segunda inclusión del script de `app.js` ya que ya está incluido al principio del `
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>`.
+    2. Añade un href válido a la etiqueta de `
+    <link>` que está vacía.
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    Aquí está el código corregido:
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    ```html
+    <!doctype html>
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- Odontograma --}}
-    <link href="{{ asset('css/odontograma.css') }}" rel="stylesheet">
-</head>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        {{-- Odontograma --}}
+        <link href="{{ asset('css/odontograma.css') }}" rel="stylesheet">
+
+    </head>
 
 <body>
     <div id="app">
@@ -87,3 +100,4 @@
 </body>
 
 </html>
+
