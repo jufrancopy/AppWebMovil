@@ -26,7 +26,7 @@ $(document).ready(function () {
             defaultPolygon
         );
         $(caraSuperior).data("cara", "S");
-        
+
 
         var caraInferior = createPolygon(
             dienteGroup,
@@ -39,7 +39,6 @@ $(document).ready(function () {
             defaultPolygon
         );
         $(caraInferior).data("cara", "I");
-        // console.log("Cara Inferior:", caraInferior);
 
         var caraDerecha = createPolygon(
             dienteGroup,
@@ -53,7 +52,6 @@ $(document).ready(function () {
         );
         $(caraDerecha).data("cara", "D");
 
-        // console.log("Cara Inferior:", caraDerecha);
         var caraIzquierda = createPolygon(
             dienteGroup,
             [
@@ -65,7 +63,6 @@ $(document).ready(function () {
             defaultPolygon
         );
         $(caraIzquierda).data("cara", "Z");
-        // console.log("Cara Inferior:", caraIzquierda);
 
         var caraCentral = createPolygon(
             dienteGroup,
@@ -78,7 +75,6 @@ $(document).ready(function () {
             defaultPolygon
         );
         $(caraCentral).data("cara", "C");
-        // console.log("Cara Inferior:", caraCentral);
 
         var caraCompleto = createText(
             dienteGroup,
@@ -93,34 +89,30 @@ $(document).ready(function () {
             }
         );
         $(caraCompleto).data("cara", "X");
-        // console.log("Cara Inferior:", caraCompleto);
 
         //Busco los tratamientos aplicados al diente
-        var tratamientosAplicadosAlDiente = $.grep(vm.tratamientosAplicados, function (t) {
-            var diente = t.diente;
-            if (!diente || !diente.id) {
+        var tratamientosAplicadosAlDiente = $.grep(vm.tratamientosAplicados(), function (t) {
+            var dienteId = t.diente().id;
+            if (!dienteId) {
                 return false; // Si el tratamiento no tiene diente o diente.id, lo ignoramos
             }
-            return diente.id == diente.id;
-        });        
+            return diente.id === dienteId; // Comparación correcta de IDs de diente
+        });
 
-        
         var caras = [];
         caras["S"] = caraSuperior;
         caras["C"] = caraCentral;
         caras["X"] = caraCompleto;
         caras["Z"] = caraIzquierda;
         caras["D"] = caraDerecha;
-        
+
         $.each(tratamientosAplicadosAlDiente, function (index, t) {
-            console.log("Tratamiento aplicado al Diente:", t);
-            if (caras[t.cara]) {
-                $(caras[t.cara]).attr("fill", "red");
+            if (caras[t.cara()]) {
+                $(caras[t.cara()]).attr("fill", "red");
             } else {
                 console.log("Cara no encontrada para el tratamiento:", t);
             }
         });
-
         [
             caraCentral,
             caraIzquierda,
@@ -132,21 +124,17 @@ $(document).ready(function () {
             $(value).on("click", function () {
                 var me = this;
                 var cara = $(me).data("cara");
-            
+
                 if (!vm.tratamientoSeleccionado) {
                     alert("Debe seleccionar un tratamiento previamente.");
                     return false;
                 }
                 //Validamos el tratamiento
                 var tratamiento = vm.tratamientoSeleccionado();
-                console.log(tratamiento)
-                
-                // Imprimir el valor del tratamiento seleccionado
-                // console.log("Tratamiento seleccionado:", tratamiento); 
-            
+
                 if (cara == "X" && !tratamiento.aplicaDiente) {
                     alert(
-                        "El tratamiento seleccionado no se puede aplicar a toda la pieza.", 
+                        "El tratamiento seleccionado no se puede aplicar a toda la pieza.",
                     );
                     return false;
                 }
@@ -156,19 +144,16 @@ $(document).ready(function () {
                     );
                     return false;
                 }
-            
-                //TODO: Validaciones de si la cara tiene tratamiento o no, etc...
-            
-                console.log('Tratamientos Aplicados: ', vm.tratamientosAplicados())
 
+                //TODO: Validaciones de si la cara tiene tratamiento o no, etc...
                 vm.tratamientosAplicados.push({
                     diente: ko.observable(diente),
                     cara: ko.observable(cara),
                     tratamiento: ko.observable(tratamiento),
                 });
-            
+
                 vm.tratamientoSeleccionado(null);
-            
+
                 //Actualizo el SVG
                 renderSvg();
             });
@@ -240,16 +225,16 @@ $(document).ready(function () {
 
     function ViewModel() {
         var self = this; // Guardamos una referencia a "this" para usarla en el ámbito interno de ViewModel
-    
+
         self.tratamientosPosibles = ko.observableArray([]);
         self.tratamientoSeleccionado = ko.observable(null);
         self.tratamientosAplicados = ko.observableArray([]); // Ahora tratamientosAplicados es un observable array
-        
+
         self.quitarTratamiento = function (tratamiento) {
             self.tratamientosAplicados.remove(tratamiento); // Utilizamos el método remove de ko.observableArray
             renderSvg();
         };
-    
+
         // Función para cargar los tratamientos desde el archivo JSON
         self.cargarTratamientos = function () {
             $.getJSON("/data/tratamientos.js", function (data) {
@@ -259,10 +244,10 @@ $(document).ready(function () {
                 console.log("Error al cargar tratamientos: " + err);
             });
         };
-    
+
         // Llamar a la función para cargar tratamientos al inicializar el ViewModel
         self.cargarTratamientos();
-    
+
         //Cargo los dientes
         var dientes = [];
         //Dientes izquierdos
@@ -291,10 +276,10 @@ $(document).ready(function () {
         for (var i = 0; i < 8; i++) {
             dientes.push(new DienteModel(31 + i, i * 25 + 210, 3 * 40));
         }
-    
+
         self.dientes = dientes;
     }
-    
+
 
     var vm = new ViewModel();
     ko.applyBindings(vm);
