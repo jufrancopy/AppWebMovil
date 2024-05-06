@@ -30,32 +30,19 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ url('form-fields/' . $formField->id) }}" method="POST">
+        <form action="{{ url('form-fields/') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="name">Nombre del Campo</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name', $formField->name) }}">
-            </div>
-
-            <div class="form-group">
-                <label for="form_template_id">Plantilla</label>
-                <select name="form_template_id" class="form-control">
-                    @foreach ($formTemplates as $template)
-                        <option value="{{ $template->id }}" {{ $formField->form_template_id == $template->id ? 'selected' : '' }}>
-                            {{ $template->name }}
-                        </option>
-                    @endforeach
-                </select>
+                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
             </div>
 
             <div class="form-group">
                 <label for="type">Tipo</label>
                 <select name="type" class="form-control">
                     @foreach (getTypeInputs() as $value => $label)
-                        <option value="{{ $value }}" {{ old('type', $formField->type) == $value ? 'selected' : '' }}>
-                            {{ $label }}
-                        </option>
+                        <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </select>
             </div>

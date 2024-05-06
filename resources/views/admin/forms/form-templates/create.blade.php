@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 @endsection
 
-
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="mb-0">Crear Item</h3>
+                <h3 class="mb-0">Crear Formulario</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('doctors') }}" class="btn btn-sm btn-default">
+                <a href="{{ url('form-templates') }}" class="btn btn-sm btn-default">
                     Cancelar y Volver
                 </a>
             </div>
@@ -31,10 +30,10 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ url('items') }}" method="POST">
+        <form action="{{ url('form-templates/') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Nombre del Item</label>
+                <label for="name">Nombre de la Plantilla</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}">
             </div>
 
@@ -44,16 +43,12 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Precio</label>
-                <input type="number" name="price" class="form-control" value="{{ old('price') }}">
-            </div>
-
-            <div class="form-group">
-                <label for="type">Tipo</label>
-                <select name="type" class="form-control">
-                    <option value="supplies" {{ old('type') == 'supplies' ? 'selected' : '' }}>Insumos</option>
-                    <option value="medicines" {{ old('type') == 'medicines' ? 'selected' : '' }}>Medicamentos</option>
-                </select>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="with_odontogram" id="with_odontogram">
+                    <label class="form-check-label" for="with_odontogram">
+                        Con Odontograma
+                    </label>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">

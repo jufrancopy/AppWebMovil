@@ -19,7 +19,7 @@ function createOdontogram() {
             "</span>" +
             '<div id="tindex' +
             i +
-            '" class="cuadro click">' +
+            '" class="cuadro click tderecho">' +
             "</div>" +
             '<div id="lindex' +
             i +
@@ -27,7 +27,7 @@ function createOdontogram() {
             "</div>" +
             '<div id="bindex' +
             i +
-            '" class="cuadro debajo click">' +
+            '" class="cuadro debajo click bderecho">' +
             "</div>" +
             '<div id="rindex' +
             i +
@@ -48,7 +48,7 @@ function createOdontogram() {
             "</span>" +
             '<div id="tindex' +
             a +
-            '" class="cuadro click">' +
+            '" class="cuadro click tizquierdo">' +
             "</div>" +
             '<div id="lindex' +
             a +
@@ -56,7 +56,7 @@ function createOdontogram() {
             "</div>" +
             '<div id="bindex' +
             a +
-            '" class="cuadro debajo click">' +
+            '" class="cuadro debajo click bizquierdo">' +
             "</div>" +
             '<div id="rindex' +
             a +
@@ -147,25 +147,33 @@ $(document).ready(function () {
 
     $(document).on("click", ".click", function () {
         var control = $("#options").val();
+
+        var dienteID = $(this).closest('.diente, .diente-leche').attr('id');
+        var lado = $(this).attr("id");
+
         $(this).removeClass("click-red click-blue");
 
         switch (control) {
             case "fractura":
                 $(this).addClass("click-red");
+                guardarInformacion(dienteID, lado, "fractura");
                 break;
 
             case "restauracion":
                 $(this).addClass("click-blue");
+                guardarInformacion(dienteID, lado, "restauracion");
                 break;
 
             case "extraccion":
                 var dienteSeleccionado = $(this).closest(
                     ".diente, .diente-leche"
-                ); // Selecciona tanto dientes permanentes como temporales
+                );
+                guardarInformacion(dienteID, 'all', "extraccion");
                 dienteSeleccionado.find(".click").addClass("click-delete");
                 break;
 
             case "extraer":
+                guardarInformacion(dienteID, 'all', "extraer");
                 var dienteSeleccionado = $(this).closest(
                     ".diente, .diente-leche"
                 ); // Selecciona tanto dientes permanentes como temporales
@@ -182,8 +190,7 @@ $(document).ready(function () {
                 break;
 
             case "puente":
-                var dientePosition = $(this).offset(),
-                    leftPX;
+                var dientePosition = $(this).offset(), leftPX;
                 var noDiente = $(this).parent().children().first().text();
                 var cuadrante = $(this).parent().parent().attr("id");
                 var left = 0,
@@ -199,7 +206,7 @@ $(document).ready(function () {
 
                 var diferencia = Math.abs(
                     parseInt(arrayPuente[1].diente) -
-                        parseInt(arrayPuente[1].father)
+                    parseInt(arrayPuente[1].father)
                 );
                 if (diferencia == 1) width = diferencia * 60;
                 else width = diferencia * 50;
@@ -229,8 +236,8 @@ $(document).ready(function () {
                     .parent()
                     .append(
                         '<div style="z-index: 9999; height: 5px; width:' +
-                            width +
-                            'px;" id="puente" class="click-red"></div>'
+                        width +
+                        'px;" id="puente" class="click-red"></div>'
                     );
                 $(this).parent().children().last().css({
                     position: "absolute",
@@ -245,3 +252,9 @@ $(document).ready(function () {
     });
     return false;
 });
+
+function guardarInformacion(idDiente, lado, accion) {
+
+    // Por ejemplo, podrías enviar estos datos al servidor utilizando AJAX
+    // $.post("/guardar-informacion", { idDiente: idDiente, lado: lado, accion: accion });
+}

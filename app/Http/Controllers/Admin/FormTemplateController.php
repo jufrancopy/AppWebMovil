@@ -28,7 +28,9 @@ class FormTemplateController extends Controller
     {
         // Reglas de validación
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            'with_odontogram' => 'required',
         ];
 
         // Mensajes de validación
@@ -38,7 +40,9 @@ class FormTemplateController extends Controller
 
         // Nombres de atributos personalizados
         $attributes = [
-            'name' => 'Nombre'
+            'name' => 'Nombre',
+            'description' => 'Descripción',
+            'with_odontogram' => 'Indique si el Formulario Requiere ODontograma'
         ];
 
         // Validar los datos recibidos en la solicitud
@@ -52,11 +56,13 @@ class FormTemplateController extends Controller
         // Crear un nuevo item
         $item = FormTemplate::create([
             'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'with_odontogram' => $request->has('with_odontogram') ? true : false,
         ]);
 
         // Redireccionar con una notificación
         $notification = 'La plantilla ha sido registrada correctamente';
-        return redirect('items')->with(compact('notification'));
+        return redirect('form-templates')->with(compact('notification'));
     }
 
     public function edit(FormTemplate $formTemplate)

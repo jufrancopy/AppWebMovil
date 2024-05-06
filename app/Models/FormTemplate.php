@@ -12,7 +12,7 @@ class FormTemplate extends Model
 
     protected $table = 'form_templates';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description', 'with_odontogram'];
 
     public function fields()
     {

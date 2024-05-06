@@ -18,11 +18,15 @@ class FormTemplateSeeder extends Seeder
         $templates = [
             [
                 'name' => 'Plantilla de Historia Clínica General',
+                'description' => 'Plantilla aplicada a la Historia Clínica General',
+                'with_odontogram' => true,
                 'delete_reason' => null,
             ],
 
             [
                 'name' => 'Plantilla de Examen Físico',
+                'description' => 'Plantilla aplicada al Examen Físico',
+                'with_odontogram' => false,
                 'delete_reason' => null,
             ],
             // Agrega más datos de ejemplo según sea necesario
@@ -32,6 +36,5 @@ class FormTemplateSeeder extends Seeder
         foreach ($templates as $template) {
             FormTemplate::create($template);
         }
-
     }
 }

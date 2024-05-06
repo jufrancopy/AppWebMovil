@@ -71,8 +71,8 @@ class FormFieldController extends Controller
     public function edit(FormTemplateField $formField)
     {
         $formTemplates = FormTemplate::getForms();
-        
-        return view('admin.forms.form-fields.edit', compact(['formField','formTemplates']));
+
+        return view('admin.forms.form-fields.edit', compact(['formField', 'formTemplates']));
     }
 
     public function update(Request $request, FormTemplateField $formField)

@@ -17,6 +17,8 @@ class CreateFormTemplatesTable extends Migration
         Schema::create('form_templates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description');
+            $table->boolean('with_odontogram')->default(false);
             $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
             $table->softDeletes();
             $table->timestamps();

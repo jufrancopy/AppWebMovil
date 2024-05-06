@@ -8,7 +8,7 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="templates-tab" data-toggle="tab" href="#templates" role="tab"
-                                aria-controls="templates" aria-selected="true">Ítems</a>
+                                aria-controls="templates" aria-selected="true">Formulario</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="trash-tab" data-toggle="tab" href="#trash" role="tab"
@@ -42,6 +42,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Odontograma</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -51,6 +53,12 @@
                                     <th scope="row">
                                         {{ $template->name }}
                                     </th>
+                                    <td>{{ $template->description }}</td>
+                                    @if ($template->with_odontogram == true)
+                                        <td><i class="fa fa-tooth text-success" aria-hidden="true"></i></td>
+                                    @else
+                                        <td><i class="fa fa-tooth text-danger" aria-hidden="true"></i></td>
+                                    @endif
                                     <td>
                                         <form action="{{ url('form-templates/' . $template->id) }}" method="POST">
                                             @csrf

@@ -17,23 +17,22 @@ class FormTemplateFieldSeeder extends Seeder
         // Datos de ejemplo para los items
         $fields = [
             [
-                'name'=>'Presión arterial',
-                'form_template_id' => 1,
+                'name' => 'blood_pressure',
+                'description' => 'Presión arterial',
                 'type' => 'text',
             ],
 
             [
-                'name'=>'Peso',
-                'form_template_id' => 1,
-                'type' => 'textarea',
+                'name' => 'weight',
+                'description' => 'Peso',
+                'type' => 'number',
             ],
 
             [
-                'name'=>'Estatura',
-                'form_template_id' => 1,
+                'name' => 'Mayor de edad?',
                 'type' => 'checkbox',
             ],
-            
+
         ];
 
         // Insertar los datos en la tabla items

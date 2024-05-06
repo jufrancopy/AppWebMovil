@@ -18,6 +18,10 @@ class CreateClinicalRecordsTable extends Migration
             $table->id();
             $table->text('detail');
 
+            // Campos para la información de cada diente
+            $table->json('teeth_information')->nullable(); // Almacena la información de cada diente en formato JSON
+            // Otros campos existentes en tu migración
+
             // Agregar columna para la referencia al estudio asociado
             $table->unsignedBigInteger('study_id')->nullable();
             $table->foreign('study_id')->references('id')->on('studies');
