@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\FormTemplateField;
+use App\Models\FormField;
 use Illuminate\Database\Seeder;
 
-class FormTemplateFieldSeeder extends Seeder
+class FormFieldSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,18 +18,19 @@ class FormTemplateFieldSeeder extends Seeder
         $fields = [
             [
                 'name' => 'blood_pressure',
-                'description' => 'Presión arterial',
+                'label' => 'Presión arterial',
                 'type' => 'text',
             ],
 
             [
                 'name' => 'weight',
-                'description' => 'Peso',
+                'label' => 'Peso',
                 'type' => 'number',
             ],
 
             [
                 'name' => 'Mayor de edad?',
+                'label' => 'Presión arterial',
                 'type' => 'checkbox',
             ],
 
@@ -37,7 +38,7 @@ class FormTemplateFieldSeeder extends Seeder
 
         // Insertar los datos en la tabla items
         foreach ($fields as $field) {
-            FormTemplateField::create($field);
+            FormField::create($field);
         }
     }
 }

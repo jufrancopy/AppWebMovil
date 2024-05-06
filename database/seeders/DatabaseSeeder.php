@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             StudiesTableSeeder::class,
             ItemsTableSeeder::class,
             FormTemplateSeeder::class,
-            FormTemplateFieldSeeder::class,
+            FormFieldSeeder::class,
             ClinicalRecordsTableSeeder::class
         ]);
     }

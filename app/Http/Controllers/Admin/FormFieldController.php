@@ -3,26 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\FormTemplate;
+use App\Models\FormField;
+
 use Illuminate\Http\Request;
-use App\Models\FormTemplateField;
 use Illuminate\Support\Facades\Validator;
 
 class FormFieldController extends Controller
 {
     public function index()
     {
-        $fields = FormTemplateField::paginate(10);
-        $trashedFields = FormTemplateField::onlyTrashed()->paginate(10);
+        $fields = FormField::paginate(10);
+        $trashedFields = FormField::onlyTrashed()->paginate(10);
 
         return view('admin.forms.form-fields.index', compact(['fields', 'trashedFields']));
     }
 
     public function create()
     {
-        $formTemplates = FormTemplate::getForms();
+        $formFields = FormField::getForms();
 
-        return view('admin.forms.form-fields.create', compact('formTemplates'));
+        return view('admin.forms.form-fields.create', compact('formFields'));
     }
 
     public function store(Request $request)
@@ -57,7 +59,7 @@ class FormFieldController extends Controller
         }
 
         // Crear un nuevo campo
-        $field = FormTemplateField::create([
+        $field = FormField::create([
             'form_template_id' => $request->input('form_template_id'),
             'name' => $request->input('name'),
             'type' => $request->input('type'),
@@ -68,14 +70,14 @@ class FormFieldController extends Controller
         return redirect()->route('form-fields.index')->with(compact('notification'));
     }
 
-    public function edit(FormTemplateField $formField)
+    public function edit(FormField $formField)
     {
         $formTemplates = FormTemplate::getForms();
 
         return view('admin.forms.form-fields.edit', compact(['formField', 'formTemplates']));
     }
 
-    public function update(Request $request, FormTemplateField $formField)
+    public function update(Request $request, FormField $formField)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -93,12 +95,12 @@ class FormFieldController extends Controller
         return redirect()->route('form-fields.index')->with(compact('notification'));
     }
 
-    public function confirmDelete(FormTemplateField $formField)
+    public function confirmDelete(FormField $formField)
     {
         return view('admin.forms.form-fields.delete', compact('formField'));
     }
 
-    public function destroy(Request $request, FormTemplateField $formField)
+    public function destroy(Request $request, FormField $formField)
     {
         $validator = Validator::make($request->all(), [
             'delete_reason' => $request->delete_reason === 'other' ? 'required' : 'required_without:delete_reason_other',
@@ -127,13 +129,13 @@ class FormFieldController extends Controller
 
     public function showTrash()
     {
-        $trashedFields = FormTemplateField::onlyTrashed()->get();
+        $trashedFields = FormField::onlyTrashed()->get();
         return view('admin.forms.form-fields.trash', compact('trashedFields'));
     }
 
     public function restore($id)
     {
-        $field = FormTemplateField::onlyTrashed()->findOrFail($id);
+        $field = FormField::onlyTrashed()->findOrFail($id);
         $field->restore();
 
         return redirect()->route('form-fields.index')->with('notification', 'El campo ha sido restaurado correctamente');

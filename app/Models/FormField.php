@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FormTemplateField extends Model
+class FormField extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'form_template_id', 'type'];
+    protected $fillable = ['name', 'description', 'type'];
 
     public function template()
     {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormTemplateFieldsTable extends Migration
+class CreateFormFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateFormTemplateFieldsTable extends Migration
     public function up()
     {
         //La tabla de campos de los registros clinicos
-        Schema::create('form_template_fields', function (Blueprint $table) {
+        Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->string('description');
+            $table->string('label');
             $table->text('delete_reason')->nullable(); // Campo para el motivo de eliminación (opcional)
             $table->softDeletes();
 
@@ -33,6 +33,6 @@ class CreateFormTemplateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_template_fields');
+        Schema::dropIfExists('form_fields');
     }
 }

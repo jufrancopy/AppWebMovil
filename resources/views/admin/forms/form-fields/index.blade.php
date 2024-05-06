@@ -43,7 +43,7 @@
                             <tr>
                                 <th scope="col">Campo</th>
                                 <th scope="col">Tipo</th>
-                                <th scope="col">Plantilla</th>
+                                <th scope="col">Label</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                     <th scope="row">
                                         {{ $field->type }}
                                     </th>
-                                    <td>{{ $field->template->name }}</td>
+                                    <td>{{ $field->label }}</td>
                                     <td>
                                         <form action="{{ url('form-fields/' . $field->id) }}" method="POST">
                                             @csrf

@@ -16,7 +16,7 @@ class FormTemplate extends Model
 
     public function fields()
     {
-        return $this->hasMany(FormTemplateField::class, 'form_template_id');
+        return $this->hasMany(FormField::class, 'form_template_id');
     }
 
     public static function getForms()

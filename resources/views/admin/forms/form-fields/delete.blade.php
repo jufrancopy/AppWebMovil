@@ -13,12 +13,10 @@
             <p>
                 ¿Estás seguro de que deseas eliminar el Formulario <strong>{{ $formField->name }}</strong>?
             </p>
-            <form action="{{ route('form-templates.destroy', $formField->id) }}" method="POST">
+            <form action="{{ route('form-fields.destroy', $formField->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <div class="form-group">
-                    {{-- <label for="delete_reason">Motivo de la eliminación (opcional)</label>
-                    <textarea name="delete_reason" id="delete_reason" rows="3" class="form-control"></textarea> --}}
 
                     <div class="form-group">
                         <label for="delete_reason">Motivo de la eliminación (opcional):</label>
