@@ -21,6 +21,11 @@
     <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+
+
+
 
     @yield('styles')
 
@@ -172,7 +177,7 @@
     <script src="{{ asset('js/odontograma.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/776ed7f2a9.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    
+
 
 
     <!-- Argon JS -->

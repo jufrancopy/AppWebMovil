@@ -22,7 +22,8 @@ class FormFieldController extends Controller
 
     public function create()
     {
-        $formFields = FormField::getForms();
+        //Obtner Formularios
+        $formFields = FormTemplate::getForms();
 
         return view('admin.forms.form-fields.create', compact('formFields'));
     }
