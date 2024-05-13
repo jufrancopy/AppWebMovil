@@ -183,6 +183,9 @@
     <!-- Argon JS -->
     @yield('scripts')
     <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+
     {{-- <script src="{{ asset('js/odontograma.js') }}"></script> --}}
 
 </body>

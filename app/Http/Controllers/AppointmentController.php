@@ -16,37 +16,47 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $role = auth()->user()->role;
-        if ($role == 'admin') {
-            $pendingAppointments = Appointment::where('status', 'Reservada')
-                ->paginate(10);
-            $confirmedAppointments = Appointment::where('status', 'Confirmada')
-                ->paginate(10);
-            $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
-                ->paginate(10);
-        } elseif ($role == 'doctor') {
-            $pendingAppointments = Appointment::where('status', 'Reservada')
-                ->where('doctor_id', Auth()->id())
-                ->paginate(10);
-            $confirmedAppointments = Appointment::where('status', 'Confirmada')
-                ->where('doctor_id', Auth()->id())
-                ->paginate(10);
-            $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
-                ->where('doctor_id', Auth()->id())
-                ->paginate(10);
-        } elseif ($role == 'patient') {
-            $pendingAppointments = Appointment::where('status', 'Reservada')
-                ->where('patient_id', Auth()->id())
-                ->paginate(10);
-            $confirmedAppointments = Appointment::where('status', 'Confirmada')
-                ->where('patient_id', Auth()->id())
-                ->paginate(10);
-            $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
-                ->where('patient_id', Auth()->id())
-                ->paginate(10);
+        // $role = auth()->user()->role;
+        // if ($role == 'admin') {
+        //     $pendingAppointments = Appointment::where('status', 'Reservada')
+        //         ->paginate(10);
+        //     $confirmedAppointments = Appointment::where('status', 'Confirmada')
+        //         ->paginate(10);
+        //     $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
+        //         ->paginate(10);
+        // } elseif ($role == 'doctor') {
+        //     $pendingAppointments = Appointment::where('status', 'Reservada')
+        //         ->where('doctor_id', Auth()->id())
+        //         ->paginate(10);
+        //     $confirmedAppointments = Appointment::where('status', 'Confirmada')
+        //         ->where('doctor_id', Auth()->id())
+        //         ->paginate(10);
+        //     $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
+        //         ->where('doctor_id', Auth()->id())
+        //         ->paginate(10);
+        // } elseif ($role == 'patient') {
+        //     $pendingAppointments = Appointment::where('status', 'Reservada')
+        //         ->where('patient_id', Auth()->id())
+        //         ->paginate(10);
+        //     $confirmedAppointments = Appointment::where('status', 'Confirmada')
+        //         ->where('patient_id', Auth()->id())
+        //         ->paginate(10);
+        //     $historialAppointments = Appointment::whereIn('status', ['Atendida', 'Cancelada'])
+        //         ->where('patient_id', Auth()->id())
+        //         ->paginate(10);
+        // }
+
+        $all_appointments = Appointment::all();
+        $appointments = [];
+
+        foreach ($all_appointments as $appointment) {
+            $appointments[] = [
+                'title' => $appointment->type,
+                'start' => $appointment->scheduled_date
+            ];
         }
 
-        return view('appointments.index', get_defined_vars());
+        return view('appointments.index', compact('appointments'));
     }
     public function show(Appointment $appointment)
     {
